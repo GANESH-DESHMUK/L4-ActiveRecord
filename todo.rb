@@ -4,13 +4,16 @@ class Todo < ActiveRecord::Base
   def due_today?
     due_date == Date.today
   end
+ def self.due_today
+    where("due_today < ?", Date.today)
+ end
 
-  def overdue?
-    due_date < Date.today
+  def self.overdue?
+    where("due_date < ?", Date.today)
   end
 
-  def due_later?
-    due_date > Date.today
+  def self.due_later?
+    where("due_date > ?", Date.today)
   end
 
   def to_displayable_string
