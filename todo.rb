@@ -6,7 +6,7 @@ class Todo < ActiveRecord::Base
     due_date == Date.today
   end
  def self.due_today?
-    where("due_today = ?", Date.today)
+    where("due_date = ?", Date.today)
  end
 
   def self.overdue?
@@ -18,10 +18,9 @@ class Todo < ActiveRecord::Base
   end
 
   def to_displayable_string
-    display_id = id
     display_status = completed ? "[X]" : "[ ]"
-    display_date = due_today? ? nil : due_date
-    "#{display_id}. #{display_status} #{todo_text} #{display_date}"
+    display_date = is_due_today? ? nil : due_date
+    "#{id}. #{display_status} #{todo_text} #{display_date}"
   end
 
   def self.show_list
